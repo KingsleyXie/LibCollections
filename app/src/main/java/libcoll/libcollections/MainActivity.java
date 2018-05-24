@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import static android.text.TextUtils.isEmpty;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private LibCollDBHelper dbHelper;
@@ -36,14 +38,23 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db =  dbHelper.getWritableDatabase();
+                db.execSQL("ALTER TABLE category ADD COLUMN newcolumn TEXT");
+
                 db.execSQL("INSERT INTO category (name, remark) VALUES (?, ?)",
-                        new String[] {"Namefdasgdsa", "REMARKkkkk"});
+                        new String[] {"NAME", "REMARK"});
+
+                db.execSQL("INSERT INTO category (name, remark, newc) VALUES (?, ?, ?)",
+                        new String[] {"Namefdasgdsa", "REMARKkkkk", "NEWFJLSDF"});
 
                 Cursor cursor = db.rawQuery("SELECT * FROM category", null);
                 if (cursor.moveToFirst()) {
                     do {
                         Log.d("name", cursor.getString(cursor.getColumnIndex("name")));
                         Log.d("remark", cursor.getString(cursor.getColumnIndex("remark")));
+
+                        String newcol = cursor.getString(cursor.getColumnIndex("newcol"));
+                        if (isEmpty(newcol)) newcol = "default";
+                        Log.d("newcol", newcol);
                     } while (cursor.moveToNext());
                     cursor.close();
                 }
