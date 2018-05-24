@@ -1,5 +1,7 @@
 package libcoll.libcollections;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -33,7 +35,18 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dbHelper.getWritableDatabase();
+                SQLiteDatabase db =  dbHelper.getWritableDatabase();
+                db.execSQL("INSERT INTO category (name, remark) VALUES (?, ?)",
+                        new String[] {"Namefdasgdsa", "REMARKkkkk"});
+
+                Cursor cursor = db.rawQuery("SELECT * FROM category", null);
+                if (cursor.moveToFirst()) {
+                    do {
+                        Log.d("name", cursor.getString(cursor.getColumnIndex("name")));
+                        Log.d("remark", cursor.getString(cursor.getColumnIndex("remark")));
+                    } while (cursor.moveToNext());
+                    cursor.close();
+                }
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
