@@ -11,6 +11,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static android.text.TextUtils.isEmpty;
+
 public class LibCollDBInterfaces {
     private LibCollDBHelper dbHelper;
     private SQLiteDatabase db;
@@ -60,17 +62,21 @@ public class LibCollDBInterfaces {
                 BookLocation bl = gson.fromJson(
                     response.body().string(), BookLocation.class
                 );
-                Log.d("book ok", bl.isOk() ? "OK" : "NOPE");
-                Log.d("book callno", bl.getCallno());
-                Log.d("book location", bl.getLocation());
+
+                if (!bl.isOk()) {
+                    bl.setCallno("非图书馆藏书");
+                    bl.setLocation("暂无该书位置信息");
+                }
+
+                db.execSQL(
+                    "INSERT INTO book (isbn, callno, location) VALUES (?, ?, ?)",
+                    new String[] {isbn, bl.getCallno(), bl.getLocation()}
+                );
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }).start();
 
-//        db.execSQL(
-//                "INSERT INTO book (isbn) VALUES (?)", new String[] {isbn}
-//        );
         return true;
     }
 }
