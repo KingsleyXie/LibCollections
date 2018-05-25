@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db =  dbHelper.getWritableDatabase();
-                db.execSQL("ALTER TABLE category ADD COLUMN newcolumn TEXT");
+//                db.execSQL("ALTER TABLE category ADD COLUMN newc TEXT");
 
                 db.execSQL("INSERT INTO category (name, remark) VALUES (?, ?)",
                         new String[] {"NAME", "REMARK"});
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity
                         Log.d("name", cursor.getString(cursor.getColumnIndex("name")));
                         Log.d("remark", cursor.getString(cursor.getColumnIndex("remark")));
 
-                        String newcol = cursor.getString(cursor.getColumnIndex("newcol"));
+                        String newcol = cursor.getString(cursor.getColumnIndex("newc"));
                         if (isEmpty(newcol)) newcol = "default";
                         Log.d("newcol", newcol);
                     } while (cursor.moveToNext());
@@ -61,8 +61,6 @@ public class MainActivity extends AppCompatActivity
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                Toast.makeText(MainActivity.this, "You clicked this button",
-                        Toast.LENGTH_SHORT).show();
             }
         });
 
