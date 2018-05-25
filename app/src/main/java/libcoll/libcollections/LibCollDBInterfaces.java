@@ -23,7 +23,7 @@ public class LibCollDBInterfaces {
         db =  dbHelper.getWritableDatabase();
     }
 
-    public boolean categoryDuplicates (String name) {
+    public boolean categoryExists (String name) {
         Cursor cursor = db.rawQuery(
             "SELECT * FROM category WHERE name = ?", new String[] {name}
         );
@@ -32,14 +32,14 @@ public class LibCollDBInterfaces {
     }
 
     public boolean addCategory(String name) {
-        if (categoryDuplicates(name)) return false;
+        if (categoryExists(name)) return false;
         db.execSQL(
             "INSERT INTO category (name) VALUES (?)", new String[] {name}
         );
         return true;
     }
 
-    public boolean bookDuplicates (String isbn) {
+    public boolean bookExists (String isbn) {
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM book WHERE isbn = ?", new String[] {isbn}
         );
@@ -48,7 +48,7 @@ public class LibCollDBInterfaces {
     }
 
     public boolean addBook(String isbn) {
-        if (bookDuplicates(isbn)) return false;
+        if (bookExists(isbn)) return false;
 
         new Thread(() -> {
             try {
@@ -77,6 +77,16 @@ public class LibCollDBInterfaces {
             }
         }).start();
 
+        return true;
+    }
+
+    public boolean remarkBook(String isbn, String remark) {
+        if (!bookExists(isbn)) return false;
+
+        db.execSQL(
+            "UPDATE book SET remark = ? WHERE isbn = ?",
+            new String[] {remark, isbn}
+        );
         return true;
     }
 }

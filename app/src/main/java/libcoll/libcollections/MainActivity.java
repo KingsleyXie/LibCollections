@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity
                 else Log.d("info", "BOOK1 Fail");
                 if (itfc.addBook("7-111fsdags-07759")) Log.d("info", "BOOK2 Success");
                 else Log.d("info", "BOOK2 Fail");
+
+                if (itfc.remarkBook("7-111-07759", "RMK")) Log.d("info", "REAMRK1 Success");
+                else Log.d("info", "REMARK1 Fail");
+                if (itfc.remarkBook("7gdsa1-07759", "RMK")) Log.d("info", "REAMRK2 Success");
+                else Log.d("info", "REMARK2 Fail");
 //                Cursor cursor = db.rawQuery("SELECT * FROM category", null);
 //                if (cursor.moveToFirst()) {
 //                    do {
