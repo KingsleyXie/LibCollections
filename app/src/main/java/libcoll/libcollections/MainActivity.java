@@ -21,8 +21,6 @@ import static android.text.TextUtils.isEmpty;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private LibCollDBHelper dbHelper;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,40 +28,26 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dbHelper = new LibCollDBHelper(this, "LibCollections.db",
-                null, 1);
+        final LibCollDBInterfaces itfc = new LibCollDBInterfaces(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SQLiteDatabase db =  dbHelper.getWritableDatabase();
-
-                db.execSQL("INSERT INTO category (name) VALUES (?)",
-                        new String[] {"NAME1"});
-
-                db.execSQL("INSERT INTO category (name) VALUES (?)",
-                        new String[] {"NAME2"});
-
-                db.execSQL("INSERT INTO category (name) VALUES (?)",
-                        new String[] {"NAME3"});
-
-                db.execSQL("INSERT INTO category (name) VALUES (?)",
-                        new String[] {"NAME4"});
-
-                db.execSQL("INSERT INTO category (name) VALUES (?)",
-                        new String[] {"NAME5"});
-
-                Cursor cursor = db.rawQuery("SELECT * FROM category", null);
-                if (cursor.moveToFirst()) {
-                    do {
-                        Log.d("name", cursor.getString(cursor.getColumnIndex("name")));
+                if (itfc.addCategory("NAME1")) Log.d("info","NAME1 Success");
+                else Log.d("info", "NAME1 Fail");
+                if (itfc.addCategory("FJDLSFJLD")) Log.d("info", "NAME2 Success");
+                else Log.d("info", "NAME2 Fail");
+//                Cursor cursor = db.rawQuery("SELECT * FROM category", null);
+//                if (cursor.moveToFirst()) {
+//                    do {
+//                        Log.d("name", cursor.getString(cursor.getColumnIndex("name")));
 //                        String newcol = cursor.getString(cursor.getColumnIndex("newc"));
 //                        if (isEmpty(newcol)) newcol = "default";
 //                        Log.d("newcol", newcol);
-                    } while (cursor.moveToNext());
-                    cursor.close();
-                }
+//                    } while (cursor.moveToNext());
+//                    cursor.close();
+//                }
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
