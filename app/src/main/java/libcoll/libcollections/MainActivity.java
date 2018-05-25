@@ -38,23 +38,29 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db =  dbHelper.getWritableDatabase();
-//                db.execSQL("ALTER TABLE category ADD COLUMN newc TEXT");
 
-                db.execSQL("INSERT INTO category (name, remark) VALUES (?, ?)",
-                        new String[] {"NAME", "REMARK"});
+                db.execSQL("INSERT INTO category (name) VALUES (?)",
+                        new String[] {"NAME1"});
 
-                db.execSQL("INSERT INTO category (name, remark, newc) VALUES (?, ?, ?)",
-                        new String[] {"Namefdasgdsa", "REMARKkkkk", "NEWFJLSDF"});
+                db.execSQL("INSERT INTO category (name) VALUES (?)",
+                        new String[] {"NAME2"});
+
+                db.execSQL("INSERT INTO category (name) VALUES (?)",
+                        new String[] {"NAME3"});
+
+                db.execSQL("INSERT INTO category (name) VALUES (?)",
+                        new String[] {"NAME4"});
+
+                db.execSQL("INSERT INTO category (name) VALUES (?)",
+                        new String[] {"NAME5"});
 
                 Cursor cursor = db.rawQuery("SELECT * FROM category", null);
                 if (cursor.moveToFirst()) {
                     do {
                         Log.d("name", cursor.getString(cursor.getColumnIndex("name")));
-                        Log.d("remark", cursor.getString(cursor.getColumnIndex("remark")));
-
-                        String newcol = cursor.getString(cursor.getColumnIndex("newc"));
-                        if (isEmpty(newcol)) newcol = "default";
-                        Log.d("newcol", newcol);
+//                        String newcol = cursor.getString(cursor.getColumnIndex("newc"));
+//                        if (isEmpty(newcol)) newcol = "default";
+//                        Log.d("newcol", newcol);
                     } while (cursor.moveToNext());
                     cursor.close();
                 }

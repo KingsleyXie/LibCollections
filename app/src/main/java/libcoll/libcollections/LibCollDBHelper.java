@@ -9,14 +9,16 @@ public class LibCollDBHelper extends SQLiteOpenHelper {
     private static final String CREATE_BOOK =
     "CREATE TABLE IF NOT EXISTS book (" +
         "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-        "isbn NVARCHAR(15) UNIQUE NOT NULL" +
+        "isbn TEXT UNIQUE NOT NULL," +
+        "callno TEXT NOT NULL," +
+        "location TEXT NOT NULL," +
+        "remark TEXT DEFAULT NULL" +
     ")";
 
     private static final String CREATE_CATEGORY =
     "CREATE TABLE IF NOT EXISTS category (" +
         "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-        "name NVARCHAR(10) NOT NULL," +
-        "remark NVARCHAR(60) DEFAULT NULL" +
+        "name TEXT NOT NULL" +
     ")";
 
     private static final String CREATE_BOOK_CATEGORY =
