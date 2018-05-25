@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity
                 else Log.d("info", "NAME1 Fail");
                 if (itfc.addCategory("FJDLSFJLD")) Log.d("info", "NAME2 Success");
                 else Log.d("info", "NAME2 Fail");
+                itfc.addBook("7-111-07759");
 //                Cursor cursor = db.rawQuery("SELECT * FROM category", null);
 //                if (cursor.moveToFirst()) {
 //                    do {
