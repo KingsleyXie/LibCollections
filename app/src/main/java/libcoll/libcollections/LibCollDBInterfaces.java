@@ -89,4 +89,28 @@ public class LibCollDBInterfaces {
         );
         return true;
     }
+
+    public boolean categoryBook(String book_isbn, String category_name) {
+        Cursor cursor = db.rawQuery(
+            "SELECT * " +
+                "FROM book_category " +
+                "WHERE book_id = (SELECT id FROM book WHERE isbn = ?) " +
+                "AND category_id = (SELECT id FROM category WHERE name = ?)",
+            new String[] {book_isbn, category_name}
+        );
+        if (cursor.moveToFirst()
+            || !bookExists(book_isbn)
+            || !categoryExists(category_name))
+            return false;
+
+        db.execSQL(
+            "INSERT INTO book_category(book_id, category_id) " +
+                "VALUES (" +
+                    "(SELECT id FROM book WHERE isbn = ?), " +
+                    "(SELECT id FROM category WHERE name = ?)" +
+                ")",
+            new String[] {book_isbn, category_name}
+        );
+        return true;
+    }
 }
