@@ -65,6 +65,8 @@ dependencies {
     implementation 'me.wangyuwei:ParticleView:1.0.2'
     //align-text-view
     implementation 'me.codeboy.android:align-text-view:2.3.0'
+    // Material Dialogs
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'com.android.support.test:runner:0.5'

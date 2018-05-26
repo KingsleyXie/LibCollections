@@ -28,6 +28,7 @@ import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.PopupWindow;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.hymane.materialhome.R;
 import com.hymane.materialhome.common.Constant;
 import com.hymane.materialhome.holder.SearchViewHolder;
@@ -169,11 +170,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void setFab(FloatingActionButton fab) {
         mFab = fab;
+        MaterialDialog.Builder dialog = new MaterialDialog.Builder(this)
+            .title("添加")
+            .content("内容")
+            .positiveText("吼蛙")
+            .negativeText("告辞");
+
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                dialog.show();
             }
         });
     }
