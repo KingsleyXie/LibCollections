@@ -59,4 +59,16 @@ public class LibCollDBHelper extends SQLiteOpenHelper {
 
         onCreate(db);
     }
+
+    public void onDowngrade(SQLiteDatabase db,
+                          int oldVersion, int newVersion) {
+        Toast.makeText(cont, "Dropping Existing Database Tables",
+            Toast.LENGTH_SHORT).show();
+
+        db.execSQL("DROP TABLE IF EXISTS book");
+        db.execSQL("DROP TABLE IF EXISTS category");
+        db.execSQL("DROP TABLE IF EXISTS book_category");
+
+        onCreate(db);
+    }
 }
