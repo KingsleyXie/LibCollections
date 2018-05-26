@@ -1,6 +1,5 @@
 package libcoll.libcollections;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -17,8 +16,10 @@ public class LibCollDBInterfaces {
     private SQLiteDatabase db;
 
     public LibCollDBInterfaces() {
-        dbHelper = new LibCollDBHelper(DBContext.getCtx(), "LibCollections.db",
-                null, 2);
+        dbHelper = new LibCollDBHelper(
+            ApplicationDBContext.getContext(),
+            "LibCollections.db",
+            null, 3);
         db =  dbHelper.getWritableDatabase();
     }
 
