@@ -3,6 +3,7 @@ package libcoll.libcollections;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -19,7 +20,7 @@ public class LibCollDBInterfaces {
     public LibCollDBInterfaces(Context context) {
         dbHelper = new LibCollDBHelper(
             context,"LibCollections.db",
-            null, 1);
+            null, 2);
         db =  dbHelper.getWritableDatabase();
     }
 
@@ -50,14 +51,15 @@ public class LibCollDBInterfaces {
         return false;
     }
 
-    public boolean addBook(String isbn) {
-        if (bookExists(isbn)) return false;
-
+    public boolean addBook(String isbn, String title, String press) {
+        if (isbn == null || bookExists(isbn)) return false;
         new Thread(() -> {
             try {
+                String url = "https://projects.kingsleyxie.cn/book_location_api.php" +
+                    "?title=" + title + "&press=" + press;
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
-                    .url("https://projects.kingsleyxie.cn/book_location_api.php?isbn=" + isbn)
+                    .url(url)
                     .build();
                 Response response = client.newCall(request).execute();
 
@@ -154,7 +156,8 @@ public class LibCollDBInterfaces {
             "SELECT * FROM book " +
                 "JOIN book_category " +
                 "ON book_id = book.id " +
-                "AND category_id = ?",
+                "AND category_id = category.id " +
+                "AND category.name = ?",
             new String[] {name}
         );
 
@@ -166,5 +169,19 @@ public class LibCollDBInterfaces {
             cursor.close();
         }
         return books;
+    }
+
+    public StoredBook getBookByISBN(String isbn) {
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM book WHERE isbn = ?",
+            new String[] {isbn}
+        );
+
+        StoredBook book = null;
+        if (cursor.moveToFirst()) {
+            book = new StoredBook(cursor);
+            cursor.close();
+        }
+        return book;
     }
 }

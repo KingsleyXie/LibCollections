@@ -190,13 +190,18 @@ public class BookInfoResponse implements Serializable {
     }
 
     public String getBookSummary() {
-        LibCollDB.itfc.addBook(isbn13);
-        ArrayList<StoredBook> books = LibCollDB.itfc.getBooks();
-        Log.e("emmm", "getBookSummary: " + Integer.toString(books.size()));
+        LibCollDB.itfc.addBook(isbn13, title, publisher);
 
-        String str = "索书号：" + "TP312C++ 564" + "\n" +
-                "位置：" + "（南校区）工业技术专业书库6架B面11列6层" + "\n" +
-                "备注：" + "吼蛙" + "\n";
+        String str = "索书号：" + "正在加载图书馆数据..." + "\n" +
+            "位置：" + "稍后刷新试试吧~" + "\n" +
+            "笔记：" + "" + "\n";
+
+        StoredBook book = LibCollDB.itfc.getBookByISBN(isbn13);
+        if (book != null) {
+            str = "索书号：" + book.callno + "\n" +
+                "位置：" + book.location + "\n" +
+                "笔记：" + book.remark + "\n";
+        }
         return str + "\n" + summary;
     }
 
