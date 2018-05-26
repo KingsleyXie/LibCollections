@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final LibCollDBInterfaces itfc = new LibCollDBInterfaces();
+        final LibCollDBInterfaces itfc = new LibCollDBInterfaces(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

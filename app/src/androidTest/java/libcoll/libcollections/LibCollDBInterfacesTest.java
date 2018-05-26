@@ -13,7 +13,9 @@ public class LibCollDBInterfacesTest {
     private  LibCollDBInterfaces itfc;
 
     public LibCollDBInterfacesTest() {
-        itfc = new LibCollDBInterfaces();
+        itfc = new LibCollDBInterfaces(
+            InstrumentationRegistry.getTargetContext()
+        );
     }
 
     @Test
