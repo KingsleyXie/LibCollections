@@ -6,11 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.google.gson.Gson;
 
+import java.util.Vector;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static android.text.TextUtils.isEmpty;
 
 public class LibCollDBInterfaces {
     private LibCollDBHelper dbHelper;
@@ -111,5 +111,47 @@ public class LibCollDBInterfaces {
             new String[] {book_isbn, category_name}
         );
         return true;
+    }
+
+    public Vector<String> getCategories() {
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM category", null
+        );
+
+        Vector<String > categories = new Vector<String>();
+        if (cursor.moveToFirst()) {
+            do {
+                categories.add(
+                    cursor.getString(cursor.getColumnIndex("name"))
+                );
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return categories;
+    }
+
+    public Vector<StoredBook> getBooksByCategory(String name) {
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM book " +
+                "JOIN book_category " +
+                "ON book_id = book.id " +
+                "AND category_id = ?",
+            new String[] {name}
+        );
+
+        Vector<StoredBook> books = new Vector<StoredBook>();
+        if (cursor.moveToFirst()) {
+            do {
+                books.add(new StoredBook(
+                    cursor.getInt(cursor.getColumnIndex("id")),
+                    cursor.getString(cursor.getColumnIndex("isbn")),
+                    cursor.getString(cursor.getColumnIndex("callno")),
+                    cursor.getString(cursor.getColumnIndex("location")),
+                    cursor.getString(cursor.getColumnIndex("remark"))
+                ));
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return books;
     }
 }

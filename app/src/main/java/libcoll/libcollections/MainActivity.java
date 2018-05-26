@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.Vector;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     @Override
@@ -30,16 +32,17 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Cursor cursor = db.rawQuery("SELECT * FROM category", null);
-//                if (cursor.moveToFirst()) {
-//                    do {
-//                        Log.d("name", cursor.getString(cursor.getColumnIndex("name")));
-//                        String newcol = cursor.getString(cursor.getColumnIndex("newc"));
-//                        if (isEmpty(newcol)) newcol = "default";
-//                        Log.d("newcol", newcol);
-//                    } while (cursor.moveToNext());
-//                    cursor.close();
-//                }
+                Vector<String> categories = itfc.getCategories();
+                if (categories.size() == 0)
+                    Log.d("Info", "No Category Found");
+                else
+                    Log.d("Info", categories.elementAt(0));
+
+                Vector<StoredBook> books = itfc.getBooksByCategory("NAME1");
+                if (books.size() == 0)
+                    Log.d("Info", "No Related Books Found");
+                else
+                    Log.d("Info", books.elementAt(0).isbn);
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
