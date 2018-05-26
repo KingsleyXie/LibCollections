@@ -19,6 +19,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -170,12 +171,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void setFab(FloatingActionButton fab) {
         mFab = fab;
-        MaterialDialog.Builder dialog = new MaterialDialog.Builder(this)
-            .title("添加")
-            .content("内容")
-            .positiveText("吼蛙")
-            .negativeText("告辞");
-
+        MaterialDialog.Builder dialog = new MaterialDialog.Builder(this);
+        dialog.title("添加收藏类别")
+            .content("请输入收藏类别名")
+            .inputType(InputType.TYPE_CLASS_TEXT)
+            .inputRange(0, 7)
+            .positiveText("确定")
+            .input(
+                "注意不要重复输入已有的类别哦",
+                "",
+                false,
+                (dlg, input) -> LibCollDB.itfc.addCategory(input.toString())
+            );
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
