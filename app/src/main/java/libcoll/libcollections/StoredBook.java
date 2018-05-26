@@ -11,9 +11,22 @@ public class StoredBook {
 
     public StoredBook(Cursor cursor) {
         id = cursor.getInt(cursor.getColumnIndex("id"));
-        isbn = cursor.getString(cursor.getColumnIndex("isbn"));
-        callno = cursor.getString(cursor.getColumnIndex("callno"));
-        location = cursor.getString(cursor.getColumnIndex("location"));
-        remark = cursor.getString(cursor.getColumnIndex("remark"));
+        isbn = escapeNull(
+            cursor.getString(cursor.getColumnIndex("isbn"))
+        );
+        callno = escapeNull(
+            cursor.getString(cursor.getColumnIndex("callno"))
+        );
+        location = escapeNull(
+            cursor.getString(cursor.getColumnIndex("location"))
+        );
+        remark = escapeNull(
+            cursor.getString(cursor.getColumnIndex("remark"))
+        );
+    }
+
+    public String escapeNull(String s) {
+        if (s == null) return "";
+        return s;
     }
 }
