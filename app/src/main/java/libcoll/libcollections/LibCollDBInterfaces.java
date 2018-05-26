@@ -16,9 +16,9 @@ public class LibCollDBInterfaces {
     private LibCollDBHelper dbHelper;
     private SQLiteDatabase db;
 
-    public LibCollDBInterfaces(Context context) {
-        dbHelper = new LibCollDBHelper(context, "LibCollections.db",
-                null, 1);
+    public LibCollDBInterfaces() {
+        dbHelper = new LibCollDBHelper(DBContext.getCtx(), "LibCollections.db",
+                null, 2);
         db =  dbHelper.getWritableDatabase();
     }
 
