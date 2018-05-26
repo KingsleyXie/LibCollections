@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.google.gson.Gson;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -117,12 +117,12 @@ public class LibCollDBInterfaces {
         return true;
     }
 
-    public Vector<String> getCategories() {
+    public ArrayList<String> getCategories() {
         Cursor cursor = db.rawQuery(
             "SELECT * FROM category", null
         );
 
-        Vector<String > categories = new Vector<>();
+        ArrayList<String> categories = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
                 categories.add(
@@ -134,12 +134,12 @@ public class LibCollDBInterfaces {
         return categories;
     }
 
-    public Vector<StoredBook> getBooks() {
+    public ArrayList<StoredBook> getBooks() {
         Cursor cursor = db.rawQuery(
             "SELECT * FROM book", null
         );
 
-        Vector<StoredBook> books = new Vector<>();
+        ArrayList<StoredBook> books = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
                 books.add(new StoredBook(cursor));
@@ -149,7 +149,7 @@ public class LibCollDBInterfaces {
         return books;
     }
 
-    public Vector<StoredBook> getBooksByCategory(String name) {
+    public ArrayList<StoredBook> getBooksByCategory(String name) {
         Cursor cursor = db.rawQuery(
             "SELECT * FROM book " +
                 "JOIN book_category " +
@@ -158,7 +158,7 @@ public class LibCollDBInterfaces {
             new String[] {name}
         );
 
-        Vector<StoredBook> books = new Vector<>();
+        ArrayList<StoredBook> books = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
                 books.add(new StoredBook(cursor));

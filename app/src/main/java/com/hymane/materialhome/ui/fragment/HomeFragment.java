@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import libcoll.libcollections.LibCollDB;
 
 
 public class HomeFragment extends BaseFragment {
@@ -61,22 +62,22 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void init() {//拿到一个array，动态添加
-        ArrayList<String> Cate_list;
         fragments = new ArrayList<>();
         fragments.add(CategoryFragment.newInstance());//分类
         fragments.add(DiscoverFragment.newInstance(0));//发现搜索
-        Cate_list=new ArrayList<String>();
-        Cate_list.add("首页");
-        Cate_list.add("推荐");
-        Cate_list.add("小说");
-        Cate_list.add("经典");
-        Cate_list.add("散文");
-        int siz=Cate_list.size();
-        for(int i=0;i<siz;i++){
-            fragments.add(BookListFragment.newInstance(Cate_list.get(i)));
+
+        LibCollDB.itfc.addCategory("首页");
+        LibCollDB.itfc.addCategory("科技");
+        LibCollDB.itfc.addCategory("散文");
+        LibCollDB.itfc.addCategory("Category1");
+        LibCollDB.itfc.addCategory("Category2");
+
+        ArrayList<String> categories = LibCollDB.itfc.getCategories();
+        for (String category : categories) {
+            fragments.add(BookListFragment.newInstance(category));
         }
 
-        mViewPager.setAdapter(new MainAdapter(getChildFragmentManager(), fragments, Cate_list));
+        mViewPager.setAdapter(new MainAdapter(getChildFragmentManager(), fragments, categories));
         mViewPager.setOffscreenPageLimit(5);
         mViewPager.setCurrentItem(2);  //默认打开首页
         mTabLayout.setupWithViewPager(mViewPager);
