@@ -32,18 +32,6 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Vector<String> categories = itfc.getCategories();
-                if (categories.size() == 0)
-                    Log.d("Info", "No Category Found");
-                else
-                    Log.d("Info", categories.elementAt(0));
-
-                Vector<StoredBook> books = itfc.getBooksByCategory("NAME1");
-                if (books.size() == 0)
-                    Log.d("Info", "No Related Books Found");
-                else
-                    Log.d("Info", books.elementAt(0).isbn);
-
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
