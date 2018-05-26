@@ -121,7 +121,7 @@ public class LibCollDBInterfaces {
             "SELECT * FROM category", null
         );
 
-        Vector<String > categories = new Vector<String>();
+        Vector<String > categories = new Vector<>();
         if (cursor.moveToFirst()) {
             do {
                 categories.add(
@@ -133,6 +133,21 @@ public class LibCollDBInterfaces {
         return categories;
     }
 
+    public Vector<StoredBook> getBooks() {
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM book", null
+        );
+
+        Vector<StoredBook> books = new Vector<>();
+        if (cursor.moveToFirst()) {
+            do {
+                books.add(new StoredBook(cursor));
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return books;
+    }
+
     public Vector<StoredBook> getBooksByCategory(String name) {
         Cursor cursor = db.rawQuery(
             "SELECT * FROM book " +
@@ -142,7 +157,7 @@ public class LibCollDBInterfaces {
             new String[] {name}
         );
 
-        Vector<StoredBook> books = new Vector<StoredBook>();
+        Vector<StoredBook> books = new Vector<>();
         if (cursor.moveToFirst()) {
             do {
                 books.add(new StoredBook(cursor));

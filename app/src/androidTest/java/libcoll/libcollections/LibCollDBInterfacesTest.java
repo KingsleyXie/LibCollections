@@ -33,7 +33,7 @@ public class LibCollDBInterfacesTest {
         assertFalse(itfc.bookExists("NOT"));
         assertFalse(itfc.bookExists("false-isbn"));
         assertTrue(itfc.addBook("false-isbn"));
-        assertTrue(itfc.addBook("false-isbn"));
+        assertFalse(itfc.addBook("false-isbn"));
         assertTrue(itfc.bookExists("false-isbn"));
         assertFalse(itfc.addBook("false-isbn"));
         assertTrue(itfc.addBook("978-7-121-26054"));
