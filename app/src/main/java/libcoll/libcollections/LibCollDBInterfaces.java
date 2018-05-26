@@ -18,7 +18,7 @@ public class LibCollDBInterfaces {
 
     public LibCollDBInterfaces(Context context) {
         dbHelper = new LibCollDBHelper(context, "LibCollections.db",
-                null, 2);
+                null, 1);
         db =  dbHelper.getWritableDatabase();
     }
 

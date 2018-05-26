@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.Vector;
 
@@ -32,6 +31,31 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                itfc.addCategory("Category1");
+                itfc.addCategory("Category2");
+
+                itfc.addBook("false-isbn1");
+                itfc.addBook("false-isbn2");
+                itfc.addBook("978-7-121-26054");
+
+                itfc.remarkBook("false-isbn1", "remark1");
+                itfc.remarkBook("false-isbn2", "remark2");
+
+                Vector<String > categories = itfc.getCategories();
+                for (String category : categories) {
+                    Log.d("info: ", "Next Category");
+                    Log.d("name", category);
+                }
+
+                Vector<StoredBook> books = itfc.getBooks();
+                for (StoredBook book : books) {
+                    Log.d("info: ", "Next Book");
+                    Log.d("isbn", book.isbn);
+                    Log.d("callno", book.callno);
+                    Log.d("location", book.location);
+                    Log.d("remark", book.remark);
+                }
+
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
