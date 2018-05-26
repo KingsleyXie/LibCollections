@@ -1,12 +1,23 @@
 package com.hymane.materialhome.bean.http.douban;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
 import com.hymane.materialhome.bean.BookRatingBean;
 import com.hymane.materialhome.bean.ImageBean;
 import com.hymane.materialhome.bean.SeriesBean;
 import com.hymane.materialhome.bean.BookTagBean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import libcoll.libcollections.BookLocation;
+import libcoll.libcollections.LibCollDB;
+import libcoll.libcollections.StoredBook;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class BookInfoResponse implements Serializable {
     public static final long serialVersionUID = 7060254125600464481L;
@@ -178,30 +189,15 @@ public class BookInfoResponse implements Serializable {
         this.author_intro = author_intro;
     }
 
-    public String getSummary(String index, String location, String remark) {
-        String str = "索书号:" + index +
-                "\n位置:" + location +
-                "\n备注:" + remark ;
-        return str;
-    }
-    public String getSummary(String index){
-        String str = "索书号:" + index +
-                "\n位置:" +
-                "\n备注:";
-        return str;
-    }
-    public String getSummary(){
-        String str = "索书号:"+
-                "\n位置:" +
-                "\n备注:" ;
-        return str;
-    }
+    public String getBookSummary() {
+        LibCollDB.itfc.addBook(isbn13);
+        ArrayList<StoredBook> books = LibCollDB.itfc.getBooks();
+        Log.e("emmm", "getBookSummary: " + Integer.toString(books.size()));
 
-    public String getBookSummary(){
-        String str = "索书号:"+
-                "\n位置:" +
-                "\n备注:\n\n" ;
-        return str + summary;
+        String str = "索书号：" + "TP312C++ 564" + "\n" +
+                "位置：" + "（南校区）工业技术专业书库6架B面11列6层" + "\n" +
+                "备注：" + "吼蛙" + "\n";
+        return str + "\n" + summary;
     }
 
     public void setSummary(String summary) {

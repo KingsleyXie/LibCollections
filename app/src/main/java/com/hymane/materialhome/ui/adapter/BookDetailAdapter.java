@@ -135,7 +135,7 @@ public class BookDetailAdapter extends RecyclerView.Adapter {
                 }
             });
         } else if (holder instanceof BookBriefHolder) {
-            if (!mBookInfo.getSummary().isEmpty()) {
+            if (!mBookInfo.getBookSummary().isEmpty()) {
                 //设置书籍详细介绍页显示的内容
                 ((BookBriefHolder) holder).etv_brief.setContent(mBookInfo.getBookSummary());
             } else {

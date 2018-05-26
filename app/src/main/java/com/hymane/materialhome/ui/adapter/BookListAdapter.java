@@ -79,7 +79,7 @@ public class BookListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ((BookListHolder) holder).tv_hots_num.setText(bookInfo.getRating().getAverage());
             ((BookListHolder) holder).tv_book_info.setText(bookInfo.getInfoString());
             //设置首页书籍信息的内容
-            ((BookListHolder) holder).tv_book_description.setText("" + bookInfo.getSummary(bookInfo.getIsbn13()));
+            ((BookListHolder) holder).tv_book_description.setText(bookInfo.getBookSummary());
             ((BookListHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
