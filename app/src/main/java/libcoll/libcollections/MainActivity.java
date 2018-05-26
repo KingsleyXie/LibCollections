@@ -1,7 +1,5 @@
 package libcoll.libcollections;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,8 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import static android.text.TextUtils.isEmpty;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     @Override
@@ -28,31 +24,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final LibCollDBInterfaces itfc = new LibCollDBInterfaces(this);
+        final LibCollDBInterfaces itfc = new LibCollDBInterfaces(this.getApplicationContext());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (itfc.addCategory("NAME1")) Log.d("info","NAME1 Success");
-                else Log.d("info", "NAME1 Fail");
-                if (itfc.addCategory("FJDLSFJLD")) Log.d("info", "NAME2 Success");
-                else Log.d("info", "NAME2 Fail");
-
-                if (itfc.addBook("7-111-07759")) Log.d("info", "BOOK1 Success");
-                else Log.d("info", "BOOK1 Fail");
-                if (itfc.addBook("7-111fsdags-07759")) Log.d("info", "BOOK2 Success");
-                else Log.d("info", "BOOK2 Fail");
-
-                if (itfc.remarkBook("7-111-07759", "RMK")) Log.d("info", "REAMRK1 Success");
-                else Log.d("info", "REMARK1 Fail");
-                if (itfc.remarkBook("7gdsa1-07759", "RMK")) Log.d("info", "REAMRK2 Success");
-                else Log.d("info", "REMARK2 Fail");
-
-                if (itfc.categoryBook("7-111-07759", "NAME1")) Log.d("info", "CATEGORY1 Success");
-                else Log.d("info", "CATEGORY1 Fail");
-                if (itfc.categoryBook("7gdsa1-gds077fdsafdsaf59", "NAME1")) Log.d("info", "CATEGORY2 Success");
-                else Log.d("info", "CATEGORY2 Fail");
 //                Cursor cursor = db.rawQuery("SELECT * FROM category", null);
 //                if (cursor.moveToFirst()) {
 //                    do {
