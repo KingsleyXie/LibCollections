@@ -1,5 +1,7 @@
 package libcoll.libcollections;
 
+import android.database.Cursor;
+
 public class StoredBook {
     public int id;
     public String isbn;
@@ -7,16 +9,11 @@ public class StoredBook {
     public String location;
     public String remark;
 
-    public StoredBook(
-        int id,
-        String isbn,
-        String callno,
-        String location,
-        String remark) {
-        this.id = id;
-        this.isbn = isbn;
-        this.callno = callno;
-        this.location = location;
-        this.remark = remark;
+    public StoredBook(Cursor cursor) {
+        id = cursor.getInt(cursor.getColumnIndex("id"));
+        isbn = cursor.getString(cursor.getColumnIndex("isbn"));
+        callno = cursor.getString(cursor.getColumnIndex("callno"));
+        location = cursor.getString(cursor.getColumnIndex("location"));
+        remark = cursor.getString(cursor.getColumnIndex("remark"));
     }
 }

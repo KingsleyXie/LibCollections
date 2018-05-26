@@ -24,7 +24,8 @@ public class LibCollDBInterfaces {
 
     public boolean categoryExists (String name) {
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM category WHERE name = ?", new String[] {name}
+            "SELECT * FROM category WHERE name = ?",
+            new String[] {name}
         );
         if (cursor.moveToFirst()) return true;
         return false;
@@ -33,14 +34,16 @@ public class LibCollDBInterfaces {
     public boolean addCategory(String name) {
         if (categoryExists(name)) return false;
         db.execSQL(
-            "INSERT INTO category (name) VALUES (?)", new String[] {name}
+            "INSERT INTO category (name) VALUES (?)",
+            new String[] {name}
         );
         return true;
     }
 
     public boolean bookExists (String isbn) {
         Cursor cursor = db.rawQuery(
-                "SELECT * FROM book WHERE isbn = ?", new String[] {isbn}
+                "SELECT * FROM book WHERE isbn = ?",
+            new String[] {isbn}
         );
         if (cursor.moveToFirst()) return true;
         return false;
@@ -142,13 +145,7 @@ public class LibCollDBInterfaces {
         Vector<StoredBook> books = new Vector<StoredBook>();
         if (cursor.moveToFirst()) {
             do {
-                books.add(new StoredBook(
-                    cursor.getInt(cursor.getColumnIndex("id")),
-                    cursor.getString(cursor.getColumnIndex("isbn")),
-                    cursor.getString(cursor.getColumnIndex("callno")),
-                    cursor.getString(cursor.getColumnIndex("location")),
-                    cursor.getString(cursor.getColumnIndex("remark"))
-                ));
+                books.add(new StoredBook(cursor));
             } while (cursor.moveToNext());
             cursor.close();
         }
