@@ -399,7 +399,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
 
             new MaterialDialog.Builder(this)
-                .title("查看已存储书籍")
+                .title("查看已存储馆藏书籍")
                 .content("点击可以快速添加笔记哦")
                 .items(items)
                 .itemsCallback((dialog, view, which, text) -> remarkBook(text.toString().substring(5, 18)))

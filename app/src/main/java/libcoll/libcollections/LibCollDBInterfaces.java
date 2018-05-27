@@ -21,11 +21,12 @@ public class LibCollDBInterfaces {
     public LibCollDBInterfaces(Context context) {
         dbHelper = new LibCollDBHelper(
             context,"LibCollections.db",
-            null, 2);
+            null, 1);
         db =  dbHelper.getWritableDatabase();
     }
 
     public boolean categoryExists (String name) {
+        if (name == null) name = "";
         Cursor cursor = db.rawQuery(
             "SELECT * FROM category WHERE name = ?",
             new String[] {name}
@@ -44,6 +45,7 @@ public class LibCollDBInterfaces {
     }
 
     public boolean bookExists (String input) {
+        if (input == null) input = "";
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM book WHERE isbn = ? OR title = ?",
             new String[] {input, input}
@@ -91,6 +93,8 @@ public class LibCollDBInterfaces {
     }
 
     public boolean remarkBook(String input, String remark) {
+        if (input == null) input = "";
+        if (remark == null) remark = "";
         if (!bookExists(input)) return false;
 
         db.execSQL(
@@ -177,6 +181,7 @@ public class LibCollDBInterfaces {
     }
 
     public StoredBook getBookByISBN(String isbn) {
+        if (isbn == null) isbn = "";
         Cursor cursor = db.rawQuery(
             "SELECT * FROM book WHERE isbn = ?",
             new String[] {isbn}
