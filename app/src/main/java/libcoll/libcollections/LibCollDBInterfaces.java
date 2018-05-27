@@ -20,7 +20,7 @@ public class LibCollDBInterfaces {
     public LibCollDBInterfaces(Context context) {
         dbHelper = new LibCollDBHelper(
             context,"LibCollections.db",
-            null, 2);
+            null, 1);
         db =  dbHelper.getWritableDatabase();
     }
 
@@ -85,12 +85,12 @@ public class LibCollDBInterfaces {
         return true;
     }
 
-    public boolean remarkBook(String isbn, String remark) {
-        if (!bookExists(isbn)) return false;
+    public boolean remarkBook(String input, String remark) {
+        if (!bookExists(input)) return false;
 
         db.execSQL(
-            "UPDATE book SET remark = ? WHERE isbn = ?",
-            new String[] {remark, isbn}
+            "UPDATE book SET remark = ? WHERE isbn = ? OR title = ?",
+            new String[] {remark, input, input}
         );
         return true;
     }

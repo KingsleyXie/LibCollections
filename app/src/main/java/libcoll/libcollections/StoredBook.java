@@ -5,6 +5,7 @@ import android.database.Cursor;
 public class StoredBook {
     public int id;
     public String isbn;
+    public String title;
     public String callno;
     public String location;
     public String remark;
@@ -13,6 +14,9 @@ public class StoredBook {
         id = cursor.getInt(cursor.getColumnIndex("id"));
         isbn = escapeNull(
             cursor.getString(cursor.getColumnIndex("isbn"))
+        );
+        title = escapeNull(
+            cursor.getString(cursor.getColumnIndex("title"))
         );
         callno = escapeNull(
             cursor.getString(cursor.getColumnIndex("callno"))

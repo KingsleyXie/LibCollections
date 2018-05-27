@@ -380,6 +380,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 if (!book.callno.equals("非图书馆藏书")) {
                     items.add(
                         "ISBN：" + book.isbn +
+                        "\n书名：" + book.title +
                         "\n索书号：" + book.callno +
                         "\n位置：" + book.location +
                         "\n笔记：" + book.remark

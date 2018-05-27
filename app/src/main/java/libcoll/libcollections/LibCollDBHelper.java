@@ -10,6 +10,7 @@ public class LibCollDBHelper extends SQLiteOpenHelper {
     "CREATE TABLE IF NOT EXISTS book (" +
         "id INTEGER PRIMARY KEY AUTOINCREMENT," +
         "isbn TEXT UNIQUE NOT NULL," +
+        "title TEXT NOT NULL," +
         "callno TEXT NOT NULL," +
         "location TEXT NOT NULL," +
         "remark TEXT DEFAULT NULL" +
