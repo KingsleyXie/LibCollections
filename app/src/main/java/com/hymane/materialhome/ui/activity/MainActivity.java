@@ -368,6 +368,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             // Handle the camera action
             switchContent(currentFragment, HomeFragment.newInstance());
         } else if (id == R.id.nav_remark) {
+            new MaterialDialog.Builder(this)
+                .title("添加书籍笔记")
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .positiveText("确定")
+                .input(
+                    "请输入书籍 ISBN 或书籍标题", "",
+                    false,
+                    (dialog, input) -> remarkBook(input.toString())
+                )
+                .show();
         } else if (id == R.id.nav_category) {
             new MaterialDialog.Builder(this)
                 .title("查看类别列表")
@@ -403,5 +413,26 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void remarkBook(String input) {
+        if (!LibCollDB.itfc.bookExists(input)) {
+            new MaterialDialog.Builder(this)
+                .content("未在数据库中找到该书籍")
+                .positiveText("确定")
+                .show();
+            return;
+        }
+
+        new MaterialDialog.Builder(this)
+            .title("添加书籍笔记")
+            .inputType(InputType.TYPE_CLASS_TEXT)
+            .positiveText("确定")
+            .input(
+                "请输入笔记内容", "",
+                false,
+                (dialog, remark) -> LibCollDB.itfc.remarkBook(input, remark.toString())
+            )
+            .show();
     }
 }

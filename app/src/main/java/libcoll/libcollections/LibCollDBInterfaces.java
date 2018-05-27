@@ -42,10 +42,10 @@ public class LibCollDBInterfaces {
         return true;
     }
 
-    public boolean bookExists (String isbn) {
+    public boolean bookExists (String input) {
         Cursor cursor = db.rawQuery(
-                "SELECT * FROM book WHERE isbn = ?",
-            new String[] {isbn}
+                "SELECT * FROM book WHERE isbn = ? OR title = ?",
+            new String[] {input, input}
         );
         if (cursor.moveToFirst()) return true;
         return false;
@@ -74,8 +74,8 @@ public class LibCollDBInterfaces {
                 }
 
                 db.execSQL(
-                    "INSERT INTO book (isbn, callno, location) VALUES (?, ?, ?)",
-                    new String[] {isbn, bl.getCallno(), bl.getLocation()}
+                    "INSERT INTO book (isbn, title, callno, location) VALUES (?, ?, ?, ?)",
+                    new String[] {isbn, title, bl.getCallno(), bl.getLocation()}
                 );
             } catch (Exception e) {
                 e.printStackTrace();
