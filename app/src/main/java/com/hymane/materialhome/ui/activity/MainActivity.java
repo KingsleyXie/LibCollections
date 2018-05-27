@@ -2,6 +2,7 @@ package com.hymane.materialhome.ui.activity;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -400,10 +401,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 .show();
         } else if (id == R.id.nav_theme) {
         } else if (id == R.id.nav_about) {
+            Resources res = getResources();
             new MaterialDialog.Builder(this)
-                .title("关于 LibCollections")
+                .title("关于 LibCollections " + res.getString(R.string.app_version))
                 .content(R.string.about_content)
-                .positiveText("确定")
+                .positiveText("我知道了")
                 .show();
         }
 

@@ -7,9 +7,9 @@
     <color name="search_icon_color_night">#ffffff</color>
 
     <!--navigation header-->
-    <color name="startColor">#3F51B5</color>
-    <color name="centerColor">#303F9F</color>
-    <color name="endColor">#2f75b3</color>
+    <color name="startColor">#6a6b6a</color>
+    <color name="centerColor">#3c5c3d</color>
+    <color name="endColor">#203b21</color>
 
     <color name="book_title_mask">#80000000</color>
     <color name="publish_info_bg_night">#6e5c5c5c</color>

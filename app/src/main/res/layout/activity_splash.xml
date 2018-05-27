@@ -14,8 +14,8 @@
         app:pv_host_text="Lib"
         app:pv_host_text_anim_time="500"
         app:pv_particle_text="Collections"
-        app:pv_particle_text_size="16sp"
-        app:pv_spread_anim_time="700"
-        app:pv_text_anim_time="900"
+        app:pv_particle_text_size="21sp"
+        app:pv_spread_anim_time="900"
+        app:pv_text_anim_time="700"
         app:pv_text_color="#FFF" />
 </LinearLayout>
