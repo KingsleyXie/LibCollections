@@ -66,11 +66,11 @@ public class HomeFragment extends BaseFragment {
         fragments.add(CategoryFragment.newInstance());//分类
         fragments.add(DiscoverFragment.newInstance(0));//发现搜索
 
-        LibCollDB.itfc.addCategory("首页");
-        LibCollDB.itfc.addCategory("科技");
-        LibCollDB.itfc.addCategory("散文");
-        LibCollDB.itfc.addCategory("Category1");
-        LibCollDB.itfc.addCategory("Category2");
+        LibCollDB.itfc.addCategory("科普");
+        LibCollDB.itfc.addCategory("计算机");
+        LibCollDB.itfc.addCategory("互联网");
+        LibCollDB.itfc.addCategory("Java");
+        LibCollDB.itfc.addCategory("C++");
 
         ArrayList<String> categories = LibCollDB.itfc.getCategories();
         for (String category : categories) {

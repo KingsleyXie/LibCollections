@@ -43,5 +43,5 @@
     <string name="action_filter_reputation">好评</string>
     <string name="action_filter_over">完结</string>
     <string name="recommend_book_list">推荐书单</string>
-    <string name="about_content">LibCollections 是一款书籍收藏管理应用，基于 MaterialHome 项目进行二次开发。应用的主要更新和亮点是优化本地体验，通过解析华工图书馆查询网站的一些页面获得其索书码及在图书馆中的具体位置，便于寻找想要的书籍，并可对它们添加简单笔记以便后续的参考。\n\n近期图书馆网页打开较慢，因此获取到返回数据的耗时变长了很多，希望大家理解。</string>
+    <string name="about_content">LibCollections 是一款书籍收藏管理应用，基于 MaterialHome 项目进行二次开发。\n\n本应用通过解析华工图书馆查询网站的一些页面，获得其索书码及在图书馆中的具体位置，便于在校图书馆寻找想要的书籍，此外还可对特定书籍添加简单笔记以便后续的参考。\n\n项目开发主要目的是简化在华工校图书馆查找和定位书籍的流程，并可通过豆瓣的书籍信息数据方便地对书籍内容和质量进行预览，节省同学们在图书馆搜索书籍的时间。</string>
 </resources>

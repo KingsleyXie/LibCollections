@@ -400,7 +400,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             new MaterialDialog.Builder(this)
                 .title("查看已存储书籍")
+                .content("点击可以快速添加笔记哦")
                 .items(items)
+                .itemsCallback((dialog, view, which, text) -> remarkBook(text.toString().substring(5, 18)))
                 .show();
         } else if (id == R.id.nav_theme) {
         } else if (id == R.id.nav_about) {
