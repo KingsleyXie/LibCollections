@@ -45,13 +45,13 @@ public class LibCollDBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_CATEGORY);
         db.execSQL(CREATE_BOOK_CATEGORY);
 
-        Toast.makeText(cont, "Database Tables Created Successfully!",
+        Toast.makeText(cont, "数据库创建成功！",
             Toast.LENGTH_SHORT).show();
     }
 
     public void onUpgrade(SQLiteDatabase db,
         int oldVersion, int newVersion) {
-        Toast.makeText(cont, "Dropping Existing Database Tables",
+        Toast.makeText(cont, "删库跑路中......",
                 Toast.LENGTH_SHORT).show();
 
         db.execSQL("DROP TABLE IF EXISTS book");
@@ -63,7 +63,7 @@ public class LibCollDBHelper extends SQLiteOpenHelper {
 
     public void onDowngrade(SQLiteDatabase db,
                           int oldVersion, int newVersion) {
-        Toast.makeText(cont, "Dropping Existing Database Tables",
+        Toast.makeText(cont, "删库跑路中......",
             Toast.LENGTH_SHORT).show();
 
         db.execSQL("DROP TABLE IF EXISTS book");
