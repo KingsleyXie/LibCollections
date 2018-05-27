@@ -42,10 +42,13 @@ import com.hymane.materialhome.utils.common.SPUtils;
 import com.hymane.materialhome.utils.common.ScreenUtils;
 import com.hymane.materialhome.utils.customtabs.CustomTabActivityHelper;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import libcoll.libcollections.LibCollDB;
 import libcoll.libcollections.LibCollDBInterfaces;
+import libcoll.libcollections.StoredBook;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int EXIT_APP_DELAY = 1000;
@@ -364,7 +367,32 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (id == R.id.nav_home) {
             // Handle the camera action
             switchContent(currentFragment, HomeFragment.newInstance());
+        } else if (id == R.id.remark) {
+        } else if (id == R.id.db) {
+            ArrayList<StoredBook> books = LibCollDB.itfc.getBooks();
+            ArrayList<String> items = new ArrayList<>();
+            for (StoredBook book : books) {
+                if (!book.callno.equals("非图书馆藏书")) {
+                    items.add(
+                        "ISBN：" + book.isbn +
+                        "\n索书号：" + book.callno +
+                        "\n位置：" + book.location +
+                        "\n笔记：" + book.remark
+                    );
+                }
+            }
+
+            new MaterialDialog.Builder(this)
+                .title("查看数据库信息")
+                .items(items)
+                .show();
+        } else if (id == R.id.nav_theme) {
         } else if (id == R.id.about) {
+            new MaterialDialog.Builder(this)
+                .title("关于 LibCollections")
+                .content(R.string.about_content)
+                .positiveText("确定")
+                .show();
         }
 
         drawer.closeDrawer(GravityCompat.START);
