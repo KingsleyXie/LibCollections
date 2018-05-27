@@ -20,7 +20,7 @@
             android:title="查看已存储馆藏图书" />
         <item
             android:id="@+id/nav_theme"
-            android:icon="@drawable/ic_color"
+            android:icon="@drawable/ic_night"
             android:title="开启夜间主题"
             app:actionLayout="@layout/action_view_switch" />
         <item

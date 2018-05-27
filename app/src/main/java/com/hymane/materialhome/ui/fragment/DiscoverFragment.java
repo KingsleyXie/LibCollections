@@ -19,8 +19,6 @@ import com.github.hymanme.tagflowlayout.tags.ColorfulTagView;
 import com.github.hymanme.tagflowlayout.tags.DefaultTagView;
 import com.hymane.materialhome.R;
 
-import com.hymane.materialhome.api.view.IEBookListView;
-
 import com.hymane.materialhome.ui.activity.CaptureActivity;
 
 import com.hymane.materialhome.ui.activity.MainActivity;
@@ -34,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DiscoverFragment extends BaseFragment implements IEBookListView {
+public class DiscoverFragment extends BaseFragment {
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.swipe_refresh_widget)
@@ -202,25 +200,6 @@ public class DiscoverFragment extends BaseFragment implements IEBookListView {
             mTags.add("音乐");
             mTags.add("人文");
         }
-    }
-
-    @Override
-    public void showMessage(String msg) {
-
-    }
-
-    @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void hideProgress() {
-
-    }
-
-    @Override
-    public void refreshData(Object result) {
     }
 
     class DiscoverAdapter extends RecyclerView.Adapter {

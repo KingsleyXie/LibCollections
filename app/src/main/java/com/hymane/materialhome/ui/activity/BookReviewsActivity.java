@@ -1,7 +1,6 @@
 package com.hymane.materialhome.ui.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,14 +8,14 @@ import android.support.v7.widget.RecyclerView;
 
 import com.hymane.materialhome.R;
 import com.hymane.materialhome.api.presenter.impl.BookDetailPresenterImpl;
-import com.hymane.materialhome.api.view.IEBookDetailView;
+import com.hymane.materialhome.api.view.IBookDetailView;
 import com.hymane.materialhome.bean.http.douban.BookReviewsListResponse;
 import com.hymane.materialhome.ui.adapter.BookReviewsAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class BookReviewsActivity extends BaseActivity implements IEBookDetailView, SwipeRefreshLayout.OnRefreshListener {
+public class BookReviewsActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
     private static final String COMMENT_FIELDS = "id,rating,author,title,updated,comments,summary,votes,useless";
     private static int count = 20;
     private int page = 0;
@@ -46,7 +45,7 @@ public class BookReviewsActivity extends BaseActivity implements IEBookDetailVie
 
     @Override
     protected void initEvents() {
-        bookDetailPresenter = new BookDetailPresenterImpl(this);
+//        bookDetailPresenter = new BookDetailPresenterImpl();
         mReviews = new BookReviewsListResponse();
         mSwipeRefreshLayout.setColorSchemeResources(R.color.recycler_color1, R.color.recycler_color2,
                 R.color.recycler_color3, R.color.recycler_color4);
@@ -70,9 +69,6 @@ public class BookReviewsActivity extends BaseActivity implements IEBookDetailVie
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == mReviewsAdapter.getItemCount()) {
-                    onLoadMore();
-                }
             }
 
             @Override
@@ -85,56 +81,10 @@ public class BookReviewsActivity extends BaseActivity implements IEBookDetailVie
         onRefresh();
     }
 
-
-    @Override
-    public void showMessage(String msg) {
-        Snackbar.make(mToolbar, msg, Snackbar.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showProgress() {
-        mSwipeRefreshLayout.post(() -> mSwipeRefreshLayout.setRefreshing(true));
-    }
-
-    @Override
-    public void hideProgress() {
-        mSwipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        });
-    }
-
-    @Override
-    public void updateView(Object result) {
-        final BookReviewsListResponse response = (BookReviewsListResponse) result;
-        if (page == 0) {
-            mReviews.getReviews().clear();
-        }
-        mReviews.getReviews().addAll(response.getReviews());
-        mReviewsAdapter.notifyDataSetChanged();
-
-        if (response.getReviews().size() < count) {
-            isLoadAll = true;
-        } else {
-            page++;
-            isLoadAll = false;
-        }
-    }
-
     @Override
     public void onRefresh() {
         page = 0;
         bookDetailPresenter.loadReviews(bookId, page * count, count, COMMENT_FIELDS);
-    }
-
-    private void onLoadMore() {
-        if (!isLoadAll) {
-            bookDetailPresenter.loadReviews(bookId, page * count, count, COMMENT_FIELDS);
-        } else {
-            showMessage(getString(R.string.no_more));
-        }
     }
 
     @Override
