@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.hymane.materialhome.R;
@@ -172,16 +173,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void setFab(FloatingActionButton fab) {
         mFab = fab;
         MaterialDialog.Builder dialog = new MaterialDialog.Builder(this);
-        dialog.title("添加收藏类别")
+        dialog.title("添加自定义类别")
             .content("请输入收藏类别名")
             .inputType(InputType.TYPE_CLASS_TEXT)
             .inputRange(0, 7)
             .positiveText("确定")
             .input(
-                "注意不要重复输入已有的类别哦",
+                "应用会自动从豆瓣获取相关书籍哦",
                 "",
-                false,
-                (dlg, input) -> LibCollDB.itfc.addCategory(input.toString())
+                (dlg, inp) -> addCategory(inp.toString())
             );
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,6 +189,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 dialog.show();
             }
         });
+    }
+
+    private void addCategory(String name) {
+        if (LibCollDB.itfc.addCategory(name)) {
+            switchContent(currentFragment, HomeFragment.newInstance());
+//            Toast.makeText(this, "新分类添加成功！", Toast.LENGTH_SHORT);
+        }
+        else {
+//            Toast.makeText(this, "添加失败，请检查此类别名是否已存在", Toast.LENGTH_SHORT);
+        }
+
     }
 
     /**
@@ -353,14 +364,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (id == R.id.nav_home) {
             // Handle the camera action
             switchContent(currentFragment, HomeFragment.newInstance());
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_theme) {
-
-        } else if (id == R.id.nav_send) {
-            Intent data = new Intent(Intent.ACTION_SENDTO);
-            data.setData(Uri.parse("mailto:hymanme@163.com"));
-            startActivity(data);
+        } else if (id == R.id.about) {
         }
 
         drawer.closeDrawer(GravityCompat.START);
