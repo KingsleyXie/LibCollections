@@ -28,7 +28,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.PopupWindow;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.hymane.materialhome.R;
@@ -197,12 +196,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private void addCategory(String name) {
         if (LibCollDB.itfc.addCategory(name)) {
             switchContent(currentFragment, HomeFragment.newInstance());
-//            Toast.makeText(this, "新分类添加成功！", Toast.LENGTH_SHORT);
         }
-        else {
-//            Toast.makeText(this, "添加失败，请检查此类别名是否已存在", Toast.LENGTH_SHORT);
-        }
-
     }
 
     /**
