@@ -367,8 +367,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (id == R.id.nav_home) {
             // Handle the camera action
             switchContent(currentFragment, HomeFragment.newInstance());
-        } else if (id == R.id.remark) {
-        } else if (id == R.id.db) {
+        } else if (id == R.id.nav_remark) {
+        } else if (id == R.id.nav_category) {
+            new MaterialDialog.Builder(this)
+                .title("查看类别列表")
+                .items(LibCollDB.itfc.getCategories())
+                .show();
+        } else if (id == R.id.nav_book) {
             ArrayList<StoredBook> books = LibCollDB.itfc.getBooks();
             ArrayList<String> items = new ArrayList<>();
             for (StoredBook book : books) {
@@ -383,11 +388,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
 
             new MaterialDialog.Builder(this)
-                .title("查看数据库信息")
+                .title("查看已存储书籍")
                 .items(items)
                 .show();
         } else if (id == R.id.nav_theme) {
-        } else if (id == R.id.about) {
+        } else if (id == R.id.nav_about) {
             new MaterialDialog.Builder(this)
                 .title("关于 LibCollections")
                 .content(R.string.about_content)
