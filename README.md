@@ -6,4 +6,4 @@ This application bases on [MaterialHome](https://github.com/hymanme/MaterialHome
 Displayed books' information are generated from [Douban API](https://developers.douban.com/wiki/?title=api_v2), together with an [interface](https://github.com/KingsleyXie/NaiveProjects/blob/master/Snippets/book_location_api.php) as data parser from SCUT library webpages.
 
 # Download
-See [Release](./release) for apk of this application.
+See [Release](https://github.com/KingsleyXie/LibCollections/releases) for apk of this application.
