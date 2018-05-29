@@ -14,11 +14,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class LibCollDBInterfaces {
+public class LibCollDBInterface {
+    public static LibCollDBInterface instance;
+
     private LibCollDBHelper dbHelper;
     private SQLiteDatabase db;
 
-    public LibCollDBInterfaces(Context context) {
+    public LibCollDBInterface(Context context) {
         dbHelper = new LibCollDBHelper(
             context,"LibCollections.db",
             null, 1);

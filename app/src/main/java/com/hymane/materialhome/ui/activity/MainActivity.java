@@ -46,8 +46,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import libcoll.libcollections.LibCollDB;
-import libcoll.libcollections.LibCollDBInterfaces;
+import libcoll.libcollections.LibCollDBInterface;
 import libcoll.libcollections.StoredBook;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,7 +71,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LibCollDB.itfc = new LibCollDBInterfaces(this);
+        LibCollDBInterface.instance = new LibCollDBInterface(this);
 
         ButterKnife.bind(this);
         if (fragmentManager == null) {
@@ -195,7 +194,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void addCategory(String name) {
-        if (LibCollDB.itfc.addCategory(name)) {
+        if (LibCollDBInterface.instance.addCategory(name)) {
             switchContent(currentFragment, HomeFragment.newInstance());
         }
     }
@@ -376,10 +375,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else if (id == R.id.nav_category) {
             new MaterialDialog.Builder(this)
                 .title("查看类别列表")
-                .items(LibCollDB.itfc.getCategories())
+                .items(LibCollDBInterface.instance.getCategories())
                 .show();
         } else if (id == R.id.nav_book) {
-            ArrayList<StoredBook> books = LibCollDB.itfc.getBooks();
+            ArrayList<StoredBook> books = LibCollDBInterface.instance.getBooks();
             ArrayList<String> items = new ArrayList<>();
             for (StoredBook book : books) {
                 if (!book.callno.equals("非图书馆藏书")) {
@@ -414,7 +413,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void remarkBook(String input) {
-        if (!LibCollDB.itfc.bookExists(input)) {
+        if (!LibCollDBInterface.instance.bookExists(input)) {
             new MaterialDialog.Builder(this)
                 .content("未在数据库中找到该书籍")
                 .positiveText("确定")
@@ -429,7 +428,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             .input(
                 "请输入笔记内容", "",
                 false,
-                (dialog, remark) -> LibCollDB.itfc.remarkBook(input, remark.toString())
+                (dialog, remark) -> LibCollDBInterface.instance.remarkBook(input, remark.toString())
             )
             .show();
     }

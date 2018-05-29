@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import libcoll.libcollections.LibCollDB;
+import libcoll.libcollections.LibCollDBInterface;
 
 
 public class HomeFragment extends BaseFragment {
@@ -66,7 +66,7 @@ public class HomeFragment extends BaseFragment {
         fragments.add(CategoryFragment.newInstance());//分类
         fragments.add(DiscoverFragment.newInstance(0));//发现搜索
 
-        ArrayList<String> categories = LibCollDB.itfc.getCategories();
+        ArrayList<String> categories = LibCollDBInterface.instance.getCategories();
         for (String category : categories) {
             fragments.add(BookListFragment.newInstance(category));
         }

@@ -1,23 +1,15 @@
 package com.hymane.materialhome.bean.http.douban;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
 import com.hymane.materialhome.bean.BookRatingBean;
 import com.hymane.materialhome.bean.ImageBean;
 import com.hymane.materialhome.bean.SeriesBean;
 import com.hymane.materialhome.bean.BookTagBean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import libcoll.libcollections.BookLocation;
-import libcoll.libcollections.LibCollDB;
+import libcoll.libcollections.LibCollDBInterface;
 import libcoll.libcollections.StoredBook;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class BookInfoResponse implements Serializable {
     public static final long serialVersionUID = 7060254125600464481L;
@@ -190,13 +182,13 @@ public class BookInfoResponse implements Serializable {
     }
 
     public String getBookSummary() {
-        LibCollDB.itfc.addBook(isbn13, title, publisher);
+        LibCollDBInterface.instance.addBook(isbn13, title, publisher);
 
         String str = "索书号：" + "正在加载图书馆数据..." + "\n" +
             "位置：" + "稍后刷新试试吧~" + "\n" +
             "笔记：" + "" + "\n";
 
-        StoredBook book = LibCollDB.itfc.getBookByISBN(isbn13);
+        StoredBook book = LibCollDBInterface.instance.getBookByISBN(isbn13);
         if (book != null) {
             str = "索书号：" + book.callno + "\n" +
                 "位置：" + book.location + "\n" +
