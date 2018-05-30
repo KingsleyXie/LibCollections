@@ -3,7 +3,6 @@ package libcoll.libcollections;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -15,10 +14,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class LibCollDBInterface {
-    public static LibCollDBInterface instance;
 
-    private LibCollDBHelper dbHelper;
-    private SQLiteDatabase db;
+    private static LibCollDBHelper dbHelper;
+    private static SQLiteDatabase db;
 
     public LibCollDBInterface(Context context) {
         dbHelper = new LibCollDBHelper(
@@ -27,7 +25,7 @@ public class LibCollDBInterface {
         db =  dbHelper.getWritableDatabase();
     }
 
-    public boolean categoryExists (String name) {
+    public static boolean categoryExists (String name) {
         if (name == null) name = "";
         Cursor cursor = db.rawQuery(
             "SELECT * FROM category WHERE name = ?",
@@ -37,7 +35,7 @@ public class LibCollDBInterface {
         return false;
     }
 
-    public boolean addCategory(String name) {
+    public static boolean addCategory(String name) {
         if (categoryExists(name)) return false;
         db.execSQL(
             "INSERT INTO category (name) VALUES (?)",
@@ -46,7 +44,7 @@ public class LibCollDBInterface {
         return true;
     }
 
-    public boolean bookExists (String input) {
+    public static boolean bookExists (String input) {
         if (input == null) input = "";
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM book WHERE isbn = ? OR title = ?",
@@ -56,7 +54,7 @@ public class LibCollDBInterface {
         return false;
     }
 
-    public boolean addBook(String isbn, String title, String press) {
+    public static boolean addBook(String isbn, String title, String press) {
         if (isbn == null || bookExists(isbn)) return false;
         new Thread(() -> {
             try {
@@ -94,7 +92,7 @@ public class LibCollDBInterface {
         return true;
     }
 
-    public boolean remarkBook(String input, String remark) {
+    public static boolean remarkBook(String input, String remark) {
         if (input == null) input = "";
         if (remark == null) remark = "";
         if (!bookExists(input)) return false;
@@ -106,7 +104,7 @@ public class LibCollDBInterface {
         return true;
     }
 
-    public boolean categoryBook(String book_isbn, String category_name) {
+    public static boolean categoryBook(String book_isbn, String category_name) {
         Cursor cursor = db.rawQuery(
             "SELECT * " +
                 "FROM book_category " +
@@ -130,7 +128,7 @@ public class LibCollDBInterface {
         return true;
     }
 
-    public ArrayList<String> getCategories() {
+    public static ArrayList<String> getCategories() {
         Cursor cursor = db.rawQuery(
             "SELECT * FROM category", null
         );
@@ -147,7 +145,7 @@ public class LibCollDBInterface {
         return categories;
     }
 
-    public ArrayList<StoredBook> getBooks() {
+    public static ArrayList<StoredBook> getBooks() {
         Cursor cursor = db.rawQuery(
             "SELECT * FROM book", null
         );
@@ -162,7 +160,7 @@ public class LibCollDBInterface {
         return books;
     }
 
-    public ArrayList<StoredBook> getBooksByCategory(String name) {
+    public static ArrayList<StoredBook> getBooksByCategory(String name) {
         Cursor cursor = db.rawQuery(
             "SELECT * FROM book " +
                 "JOIN book_category " +
@@ -182,7 +180,7 @@ public class LibCollDBInterface {
         return books;
     }
 
-    public StoredBook getBookByISBN(String isbn) {
+    public static StoredBook getBookByISBN(String isbn) {
         if (isbn == null) isbn = "";
         Cursor cursor = db.rawQuery(
             "SELECT * FROM book WHERE isbn = ?",

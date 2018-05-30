@@ -66,28 +66,12 @@ public class HomeFragment extends BaseFragment {
         fragments.add(CategoryFragment.newInstance());//分类
         fragments.add(DiscoverFragment.newInstance(0));//发现搜索
 
-        ArrayList<String> categories = LibCollDBInterface.instance.getCategories();
+        ArrayList<String> categories = LibCollDBInterface.getCategories();
         for (String category : categories) {
             fragments.add(BookListFragment.newInstance(category));
         }
 
         mViewPager.setAdapter(new MainAdapter(getChildFragmentManager(), fragments, categories));
-        mViewPager.setOffscreenPageLimit(5);
-        mViewPager.setCurrentItem(2);  //默认打开首页
-        mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.setSelectedTabIndicatorColor(getContext().getResources().getColor(R.color.white));
-    }
-
-    private void change(ArrayList<String> newArray){
-        mTabLayout.clearOnTabSelectedListeners();
-        fragments = new ArrayList<>();
-        fragments.add(CategoryFragment.newInstance());//分类
-        fragments.add(DiscoverFragment.newInstance(0));//发现搜索
-        int siz=newArray.size();
-        for(int i=0;i<siz;i++){
-            fragments.add(BookListFragment.newInstance(newArray.get(i)));
-        }
-        mViewPager.setAdapter(new MainAdapter(getChildFragmentManager(), fragments, newArray));
         mViewPager.setOffscreenPageLimit(5);
         mViewPager.setCurrentItem(2);  //默认打开首页
         mTabLayout.setupWithViewPager(mViewPager);

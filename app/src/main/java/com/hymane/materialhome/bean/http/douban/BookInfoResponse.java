@@ -182,13 +182,13 @@ public class BookInfoResponse implements Serializable {
     }
 
     public String getBookSummary() {
-        LibCollDBInterface.instance.addBook(isbn13, title, publisher);
+        LibCollDBInterface.addBook(isbn13, title, publisher);
 
         String str = "索书号：" + "正在加载图书馆数据..." + "\n" +
             "位置：" + "稍后刷新试试吧~" + "\n" +
             "笔记：" + "" + "\n";
 
-        StoredBook book = LibCollDBInterface.instance.getBookByISBN(isbn13);
+        StoredBook book = LibCollDBInterface.getBookByISBN(isbn13);
         if (book != null) {
             str = "索书号：" + book.callno + "\n" +
                 "位置：" + book.location + "\n" +
