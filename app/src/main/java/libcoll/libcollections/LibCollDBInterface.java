@@ -21,7 +21,7 @@ public class LibCollDBInterface {
     public LibCollDBInterface(Context context) {
         dbHelper = new LibCollDBHelper(
             context,"LibCollections.db",
-            null, 1);
+            null, 2);
         db =  dbHelper.getWritableDatabase();
     }
 
@@ -90,6 +90,44 @@ public class LibCollDBInterface {
         }).start();
 
         return true;
+    }
+
+    public static void tryUpdateBooks() {
+        ArrayList<StoredBook> books = LibCollDBInterface.getBooks();
+        for (StoredBook book : books) {
+            new Thread(() -> {
+                try {
+                    String url = "https://projects.kingsleyxie.cn/book_location_api.php" +
+                        "?title=" + book.title + "&press=''";
+                    OkHttpClient client = new OkHttpClient.Builder()
+                        .connectTimeout(1, TimeUnit.MINUTES)
+                        .writeTimeout(1, TimeUnit.MINUTES)
+                        .readTimeout(1, TimeUnit.MINUTES)
+                        .build();
+                    Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+                    Response response = client.newCall(request).execute();
+
+                    Gson gson = new Gson();
+                    BookLocation bl = gson.fromJson(
+                        response.body().string(), BookLocation.class
+                    );
+
+                    if (!bl.isOk()) {
+                        bl.setCallno("非图书馆藏书");
+                        bl.setLocation("暂无该书位置信息");
+                    }
+
+                    db.execSQL(
+                        "UPDATE book SET callno = ?, location = ? WHERE isbn = ?",
+                        new String[] {bl.getCallno(), bl.getLocation(), book.isbn}
+                    );
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
     }
 
     public static boolean remarkBook(String input, String remark) {

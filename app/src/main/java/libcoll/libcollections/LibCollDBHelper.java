@@ -207,6 +207,8 @@ public class LibCollDBHelper extends SQLiteOpenHelper {
 
         Toast.makeText(cont, "为便于演示，已将样例数据加载进数据库",
             Toast.LENGTH_LONG).show();
+
+        LibCollDBInterface.tryUpdateBooks();
     }
 
     public void onUpgrade(SQLiteDatabase db,
