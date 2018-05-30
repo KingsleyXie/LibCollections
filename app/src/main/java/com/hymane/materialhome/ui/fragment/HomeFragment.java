@@ -61,10 +61,10 @@ public class HomeFragment extends BaseFragment {
         ((MainActivity) getActivity()).setFab(mFab);
     }
 
-    private void init() {//拿到一个array，动态添加
+    private void init() {
         fragments = new ArrayList<>();
-        fragments.add(CategoryFragment.newInstance());//分类
-        fragments.add(DiscoverFragment.newInstance(0));//发现搜索
+        fragments.add(CategoryFragment.newInstance());
+        fragments.add(DiscoverFragment.newInstance(0));
 
         ArrayList<String> categories = LibCollDBInterface.getCategories();
         for (String category : categories) {
@@ -73,7 +73,7 @@ public class HomeFragment extends BaseFragment {
 
         mViewPager.setAdapter(new MainAdapter(getChildFragmentManager(), fragments, categories));
         mViewPager.setOffscreenPageLimit(5);
-        mViewPager.setCurrentItem(2);  //默认打开首页
+        mViewPager.setCurrentItem(0);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setSelectedTabIndicatorColor(getContext().getResources().getColor(R.color.white));
     }
@@ -85,8 +85,7 @@ public class HomeFragment extends BaseFragment {
         public MainAdapter(FragmentManager fm, List<BaseFragment> fragments,ArrayList<String> Cate_list) {
             super(fm);
             titles=new String[Cate_list.size()+2];
-            titles[0]="分类";
-            titles[1]="搜索";
+            titles[0]="分类"; titles[1]="搜索";
             for(int i = 0; i < Cate_list.size();++i){
                 titles[i+ 2]= Cate_list.get(i);
             }
